@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Chatuser;
+use App\Models\Message;
 use Session;
 use DB;
 
@@ -81,12 +82,42 @@ class UserController extends Controller
     public function chatDuet($uid1){
         $user2 = Chatuser::where('unique_id', $uid1)->first();
         $user1 = Chatuser::where('unique_id', Session::get('uid'))->first();
-        DB::select("
-            select * from messages where 
-        ");
+        // DB::select("
+        //     select * from messages where 
+        // ");
+
+        // $users = DB::table('users')->where([
+        //     ['status', '=', '1'],
+        //     ['subscribed', '<>', '1'],
+        // ])->get();
+
+        // $users = DB::table('users')
+        //     ->where('votes', '>', 100)
+        //     ->orWhere(function($query) {
+        //         $query->where('name', 'Abigail')
+        //               ->where('votes', '>', 50);
+        //     })
+        //     ->get();
+
+        // $affected = DB::table('users')
+        //       ->where('id', 1)
+        //       ->update(['votes' => 1]);
+        $allMsg = Message::all();
+
+        // $sql = "SELECT * FROM messages LEFT JOIN chatuser ON chatuser.unique_id = messages.outgoing_id
+        // WHERE (outgoing_id = {Session::get('uid')} AND incoming_id = {$uid1})
+        // OR (outgoing_id = {$uid1} AND incoming_msg_id = {Session::get('uid')}) ORDER BY id";
+        // $allMsg = DB::table('messages')
+        //             ->where(
+        //                 [ 'incoming_id', '=', $uid1],
+        //                 [ 'incoming_id', '=', Session::get('uid')],
+        //                 [ 'outgoing_id', '=', Session::get('uid')],
+        //                 [ 'outgoing_id', '=', $uid1], 
+        //             )->get();
         return view('chat', [
             'user1' => $user1,
             'user2' => $user2,
+            'allMsg' => $allMsg,
             // 'msgDatas' => $msgData,
         ]);
     }

@@ -28,4 +28,6 @@ Route::post('/do-signup', [UserController::class, 'doSignup']);
 Route::post('/do-login', [UserController::class, 'doLogin']);
 Route::get('/chat-duet/{uid1}', [UserController::class, 'chatDuet']);
 Route::get('/back-to-user', [UserController::class, 'backToUser']);
-Route::post('/insert-msg', [MessageController::class, 'insertMsg']);
+Route::post('/in-msg', [MessageController::class, 'inMsg']);
+// Route::get('/fetch-msg', [MessageController::class, 'fetchMsgData']);
+// Route::post('/set-data', [MessageController::class, 'setData']);
